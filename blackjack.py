@@ -51,10 +51,10 @@ class Player:
     def __str__(self):
         return self.name
 
-    def look_at_hand(self, hand):
+    def look_at_hand(self):
         '''Shows cards in hand to player'''
-        for card in hand:
-            print(f'The players card is {card}')
+        for card in self.hand:
+            print(f'The player\'s card is {card}')
 
     def if_ace(self, card, value):
         '''Change value of Ace to 1 if total value exceeds 21'''
@@ -102,17 +102,16 @@ class Game:
 
     def hit(self, player):
         '''Deal one card to the selected player'''
-        for card in self.deck.cards:
-            if card.rank == "A":
-                self.player.hand.append(card)
+        card = self.deck.cards.pop()
+        self.player.hand.append(card)
 
 # print(ace_of_spades)
 # print(four_of_clubs)
 
 
 new_game = Game()
-Game.hit(new_game, new_game.player)
-Player.look_at_hand(new_game, new_game.player.hand)
+new_game.hit(new_game.player)
+new_game.player.look_at_hand()
 # Player.calculate_hand_value(new_game)
 breakpoint()
 # TODO Add values of each hand so player and dealer can decide to hit or stay
