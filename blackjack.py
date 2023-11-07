@@ -29,7 +29,7 @@ class Deck:
             for rank in RANKS:
                 card = Card(suit, rank)
                 if card.rank == 'A':
-                    card.value = (1, 11)
+                    card.value = (11)
                 elif card.rank in range(2, 11):
                     card.value = rank
                 else:
@@ -51,13 +51,27 @@ class Player:
     def __str__(self):
         return self.name
 
-    def look_at_hand(self):
+    def look_at_hand(self, hand):
         '''Shows cards in hand to player'''
-        pass
+        for card in hand:
+            print(f'The players card is {card}')
+
+    def if_ace(self, card, value):
+        '''Change value of Ace to 1 if total value exceeds 21'''
+        for card in self.hand:
+            if card.rank == "A" and value > 21:
+                value -= 10
+        return value
 
     def calculate_hand_value(self):
         '''return the total value of the hand'''
-        pass
+        total_value = 0
+        for card in self.hand:
+            total_value += card.value
+        total_value = self.if_ace(card, total_value)
+        print(total_value)
+
+
 
 
 class Dealer(Player):
@@ -88,11 +102,17 @@ class Game:
 
     def hit(self, player):
         '''Deal one card to the selected player'''
-        pass
+        for card in self.deck.cards:
+            if card.rank == "A":
+                self.player.hand.append(card)
 
 # print(ace_of_spades)
 # print(four_of_clubs)
 
 
 new_game = Game()
+Game.hit(new_game, new_game.player)
+Player.look_at_hand(new_game, new_game.player.hand)
+# Player.calculate_hand_value(new_game)
+breakpoint()
 # TODO Add values of each hand so player and dealer can decide to hit or stay
