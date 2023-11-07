@@ -72,12 +72,13 @@ class Player:
         print(total_value)
 
 
-
-
 class Dealer(Player):
     def __init__(self):
         self.name = 'Dealer'
         super().__init__('Dealer')
+
+    def look_at_top_card(self):
+        print(f'The dealer\'s top card is {self.hand[0]}')
 
 
 class Game:
